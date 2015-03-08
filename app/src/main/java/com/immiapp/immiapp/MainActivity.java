@@ -15,6 +15,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     //this is a test message -feras
+    //another test message -ben
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
