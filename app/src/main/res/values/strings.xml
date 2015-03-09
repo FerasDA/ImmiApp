@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Immi App</string>
+    <string name="account_settings">Account Settings</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="birthday">Birthday</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="AppTitle">Immi App</string>
+    <string name="login_button">Login</string>
     <string name="action_settings">Settings</string>
 </resources>
