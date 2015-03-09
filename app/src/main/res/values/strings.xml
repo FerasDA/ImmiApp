@@ -12,7 +12,7 @@
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="hello_world">Hello world!</string>
-    <string name="AppTitle">Immi App</string>
+    <string name="AppTitle">Immi</string>
     <string name="login_button">Login</string>
     <string name="signup_button">Sign Up</string>
     <string name="action_settings">Settings</string>
