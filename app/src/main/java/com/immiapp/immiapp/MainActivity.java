@@ -11,12 +11,14 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signup);
     }
 
     //this is a test message -feras
     //another test message -ben
     //testing pull request -feras
+    //test -sonny
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
