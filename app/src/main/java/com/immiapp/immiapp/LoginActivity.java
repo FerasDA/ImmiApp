@@ -2,6 +2,7 @@ package com.immiapp.immiapp;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,8 +13,20 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Log.d("Login", "onCreate");
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("Login", "onStart");
+    }
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        Log.d("Login", "onResume");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
