@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created by Feras on 3/9/2015.
- * this is modified from the TicTacToe app example in Android for Dummies.
+ * this is modified from the
  */
 public class DatabaseHelper {
     private static final String DATABASE_NAME = "Immi.db";
