@@ -86,6 +86,7 @@ public class SignupActivity extends Activity implements View.OnClickListener {
 
     public void onClick(View v) {
         switch (v.getId()) {
+            //later will make this go to Home
             case R.id.done:
                 CreateAccount();
                 finish();
