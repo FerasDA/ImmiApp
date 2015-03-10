@@ -68,6 +68,16 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:hint="@string/password_confirm"
+            android:ems="10"
+            android:id="@+id/password_confirm" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
