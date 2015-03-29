@@ -17,32 +17,46 @@ import java.util.List;
 public class DatabaseHelper {
     private static final String DATABASE_NAME = "Immi.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "Accounts";
+    private static final String ACCOUNT_TABLE = "Accounts";
     private Context context;
     private SQLiteDatabase db;
-    private SQLiteStatement insertStmt;
-    private static final String INSERT = "insert into " + TABLE_NAME + "(name, password) values (?, ?)" ;
+    private SQLiteStatement Statement;
+    private static final String INSERT = "Insert into " + ACCOUNT_TABLE + "(name, password) values (?, ?)" ;
 
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper(Context context)
+    {
         this.context = context;
         ImmiOpenHelper openHelper = new ImmiOpenHelper(this.context);
         this.db = openHelper.getWritableDatabase();
-        this.insertStmt = this.db.compileStatement(INSERT);
+        this.Statement = this.db.compileStatement(INSERT);
     }
 
-    public long insert(String name, String password) {
-        this.insertStmt.bindString(1, name);
-        this.insertStmt.bindString(2, password);
-        return this.insertStmt.executeInsert();
-    }
-    public void deleteAll() {
+    public long CheckForUsername(String username)
+    {
+        String SEL = "SELECT count(*) FROM (SELECT * FROM " + ACCOUNT_TABLE + " WHERE '" + username + "' = " + ACCOUNT_TABLE + ".name);";
 
-        this.db.delete(TABLE_NAME, null, null);
+        Log.d("DB",SEL);
+
+        SQLiteStatement stmt = db.compileStatement(SEL);
+        long rtn = stmt.simpleQueryForLong();
+        return rtn;
+    }
+
+    public long Insert(String name, String password)
+    {
+        this.Statement.bindString(1, name);
+        this.Statement.bindString(2, password);
+        return this.Statement.executeInsert();
+    }
+
+    public void DeleteAll() {
+
+        this.db.delete(ACCOUNT_TABLE, null, null);
     }
 
     public List<String> selectAll(String username, String password) {
         List<String> list = new ArrayList<String>();
-        Cursor cursor = this.db.query(TABLE_NAME, new String[] { "name", "password" }, "name = '"+ username +"' AND password= '"+ password+"'", null, null, null, "name desc");
+        Cursor cursor = this.db.query(ACCOUNT_TABLE, new String[] { "name", "password" }, "name = '"+ username +"' AND password= '"+ password+"'", null, null, null, "name desc");
         if (cursor.moveToFirst()) {
             do {
                 list.add(cursor.getString(0));
@@ -63,14 +77,14 @@ public class DatabaseHelper {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY, name TEXT, password TEXT)");
+            db.execSQL("CREATE TABLE " + ACCOUNT_TABLE + "(id INTEGER PRIMARY KEY, name TEXT, password TEXT)");
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
             Log.w("Example", "Upgrading database; this will drop and recreate the tables.");
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + ACCOUNT_TABLE);
             onCreate(db);
         }
     }
