@@ -3,7 +3,6 @@ package com.immiapp.immiapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +40,7 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         btnAdd.setOnClickListener(this);
         View btnCancel = (Button) findViewById(R.id.cancel);
         btnCancel.setOnClickListener(this);
+        this.dh = new DatabaseHelper(this);
     }
 
     private void CreateAccount() {
@@ -52,14 +52,47 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         String password = etPassword.getText().toString();
         String confirm = etConfirm.getText().toString();
 
-        //still need to edit the DatabaseHelper class to insert firstname
+        //still need to edit the DatabaseHelper class to Insert firstname
         //lastname, and email to the databse
+        String errors = "";
+        boolean addToDB = true,
+            passwordsMatch = CheckPasswordsMatch(password, confirm),
+            usernameUnique = IsUniqueUsername(username),
+            usernameLengthOk = username.length() > 0;
+
+        if(!passwordsMatch)
+        {
+            addToDB = false;
+            errors += "Passwords do not match. ";
+        }
+        if(!usernameUnique)
+        {
+            addToDB = false;
+            errors += "Username taken. ";
+        }
+        if(!usernameLengthOk)
+        {
+            addToDB = false;
+            errors += "Username too short. ";
+        }
+
+        if(addToDB)
+        {
+            dh.Insert(username, password);
+            Toast.makeText(SignupActivity.this, "new record inserted",
+                    Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else
+        {
+            Toast.makeText(SignupActivity.this, errors, Toast.LENGTH_SHORT).show();
+        }
+
         if ((password.equals(confirm)) && (!username.equals(""))
                 && (!password.equals("")) && (!confirm.equals(""))
                 && (firstname.equals("")) && (lastname.equals(""))
                 && (email.equals(""))) {
-            this.dh = new DatabaseHelper(this);
-            this.dh.insert(username, password);
+            this.dh.Insert(username, password);
             // this.labResult.setText("Added");
             Toast.makeText(SignupActivity.this, "new record inserted",
                     Toast.LENGTH_SHORT).show();
@@ -129,5 +162,23 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean CheckPasswordsMatch(String password1, String password2)
+    {
+        return (password1.equals(password2));
+    }
+
+    private boolean IsUniqueUsername(String username)
+    {
+        boolean valOK = false;
+
+        long usernameUnique = dh.CheckForUsername(username);
+        if(usernameUnique == 0)
+        {
+            valOK = true;
+        }
+
+        return valOK;
     }
 }
