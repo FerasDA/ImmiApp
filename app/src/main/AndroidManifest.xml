@@ -23,6 +23,10 @@
             android:name=".PreferencesActivity"
             android:label="@string/title_activity_preferences">
          </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="HomeActivity">
+        </activity>
     </application>
 
 </manifest>

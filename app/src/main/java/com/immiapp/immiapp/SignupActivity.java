@@ -1,6 +1,8 @@
 package com.immiapp.immiapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,25 +58,32 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         boolean addToDB = true,
             passwordsMatch = CheckPasswordsMatch(password, confirm),
             usernameUnique = IsUniqueUsername(username),
-            usernameLengthOk = username.length() > 0,
-            hasEntries = firstname.length() > 0 && lastname.length() > 0,
-            validEmail = ValidateEmail(email);
+            usernameLengthOk = username.length() > 0;
+                //,
+           // hasEntries = firstname.length() > 0 && lastname.length() > 0,
+           // validEmail = ValidateEmail(email);
 
         if(!passwordsMatch)
         {
             addToDB = false;
-            errors = "Passwords do not match.";
+            errors += "Passwords do not match. ";
+            //errors = "Passwords do not match.";
         }
-        else if(!usernameUnique)
+        //else
+        if(!usernameUnique)
         {
             addToDB = false;
+            errors += "Username taken. ";
             errors = "Username taken.";
         }
-        else if(!usernameLengthOk)
+        //else
+        if(!usernameLengthOk)
         {
+            errors += "Username too short. ";
+            //errors = "Username too short.";
             addToDB = false;
-            errors = "Username too short.";
         }
+        /*
         else if(!hasEntries)
         {
             addToDB = false;
@@ -85,17 +94,46 @@ public class SignupActivity extends Activity implements View.OnClickListener {
             addToDB = false;
             errors = "Invalid email format.";
         }
-
+*/
         if(addToDB)
         {
-            dh.Accounts_Insert(username, password, firstname, lastname, email);
-            Toast.makeText(SignupActivity.this, "New record inserted.",
+            dh.Insert(username, password);
+            Toast.makeText(SignupActivity.this, "new record inserted",
+           // dh.Accounts_Insert(username, password, firstname, lastname, email);
+           // Toast.makeText(SignupActivity.this, "New record inserted.",
                     Toast.LENGTH_SHORT).show();
             finish();
         }
         else
         {
             Toast.makeText(SignupActivity.this, errors, Toast.LENGTH_SHORT).show();
+        }
+
+        if ((password.equals(confirm)) && (!username.equals(""))
+                && (!password.equals("")) && (!confirm.equals(""))
+                && (firstname.equals("")) && (lastname.equals(""))
+                && (email.equals(""))) {
+            this.dh.Insert(username, password);
+            // this.labResult.setText("Added");
+                    Toast.makeText(SignupActivity.this, "new record inserted",
+                            Toast.LENGTH_SHORT).show();
+            finish();
+        } else if ((username.equals("")) || (password.equals(""))
+            || (confirm.equals("")) || (firstname.equals(""))
+            || (lastname.equals("")) || (email.equals(""))) {
+        Toast.makeText(SignupActivity.this, "Missing entry", Toast.LENGTH_SHORT)
+                .show();
+        } else if (!password.equals(confirm)) {
+        new AlertDialog.Builder(this)
+                .setTitle("Error")
+                .setMessage("passwords do not match")
+                .setNeutralButton("Try Again",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                            }
+                        })
+                .show();
         }
     }
 
@@ -155,7 +193,8 @@ public class SignupActivity extends Activity implements View.OnClickListener {
     {
         boolean valOK = false;
 
-        long usernameUnique = dh.Accounts_CheckForUsername(username);
+        long usernameUnique = dh.CheckForUsername(username);
+        //long usernameUnique = dh.Accounts_CheckForUsername(username);
         if(usernameUnique == 0)
         {
             valOK = true;
@@ -163,7 +202,7 @@ public class SignupActivity extends Activity implements View.OnClickListener {
 
         return valOK;
     }
-
+/*
     private boolean ValidateEmail(String email)
     {
         boolean valid = false,
@@ -192,4 +231,5 @@ public class SignupActivity extends Activity implements View.OnClickListener {
 
         return valid;
     }
+    */
 }

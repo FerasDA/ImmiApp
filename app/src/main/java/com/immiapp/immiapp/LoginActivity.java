@@ -47,7 +47,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String username = this.userNameEditableField.getText().toString();
         String password = this.passwordEditableField.getText().toString();
         this.dh = new DatabaseHelper(this);
-        List<String> names = this.dh.Accounts_SelectAll(username, password);
+        List<String> names = this.dh.selectAll(username, password);
+
+//        List<String> names = this.dh.Accounts_SelectAll(username, password);
         if (names.size() > 0) { // Login successful
             // Save username as the name of the player
             SharedPreferences settings = PreferenceManager
