@@ -1,9 +1,6 @@
 package com.immiapp.immiapp;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +38,7 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         btnAdd.setOnClickListener(this);
         View btnCancel = (Button) findViewById(R.id.cancel);
         btnCancel.setOnClickListener(this);
+        this.dh = new DatabaseHelper(this);
     }
 
     private void CreateAccount() {
@@ -52,35 +50,52 @@ public class SignupActivity extends Activity implements View.OnClickListener {
         String password = etPassword.getText().toString();
         String confirm = etConfirm.getText().toString();
 
-        //still need to edit the DatabaseHelper class to insert firstname
+        //still need to edit the DatabaseHelper class to Accounts_Insert firstname
         //lastname, and email to the databse
-        if ((password.equals(confirm)) && (!username.equals(""))
-                && (!password.equals("")) && (!confirm.equals(""))
-                && (firstname.equals("")) && (lastname.equals(""))
-                && (email.equals(""))) {
-            this.dh = new DatabaseHelper(this);
-            this.dh.insert(username, password);
-            // this.labResult.setText("Added");
-            Toast.makeText(SignupActivity.this, "new record inserted",
+        String errors = "";
+        boolean addToDB = true,
+            passwordsMatch = CheckPasswordsMatch(password, confirm),
+            usernameUnique = IsUniqueUsername(username),
+            usernameLengthOk = username.length() > 0,
+            hasEntries = firstname.length() > 0 && lastname.length() > 0,
+            validEmail = ValidateEmail(email);
+
+        if(!passwordsMatch)
+        {
+            addToDB = false;
+            errors = "Passwords do not match.";
+        }
+        else if(!usernameUnique)
+        {
+            addToDB = false;
+            errors = "Username taken.";
+        }
+        else if(!usernameLengthOk)
+        {
+            addToDB = false;
+            errors = "Username too short.";
+        }
+        else if(!hasEntries)
+        {
+            addToDB = false;
+            errors = "Missing Entry";
+        }
+        else if(!validEmail)
+        {
+            addToDB = false;
+            errors = "Invalid email format.";
+        }
+
+        if(addToDB)
+        {
+            dh.Accounts_Insert(username, password, firstname, lastname, email);
+            Toast.makeText(SignupActivity.this, "New record inserted.",
                     Toast.LENGTH_SHORT).show();
             finish();
-        } else if ((username.equals("")) || (password.equals(""))
-                || (confirm.equals("")) || (firstname.equals(""))
-                || (lastname.equals("")) || (email.equals(""))) {
-            Toast.makeText(SignupActivity.this, "Missing entry", Toast.LENGTH_SHORT)
-                    .show();
-        } else if (!password.equals(confirm)) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Error")
-                    .setMessage("passwords do not match")
-                    .setNeutralButton("Try Again",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                                    int which) {
-                                }
-                            })
-
-                    .show();
+        }
+        else
+        {
+            Toast.makeText(SignupActivity.this, errors, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -130,5 +145,52 @@ public class SignupActivity extends Activity implements View.OnClickListener {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean CheckPasswordsMatch(String password1, String password2)
+    {
+        return (password1.equals(password2));
+    }
+
+    private boolean IsUniqueUsername(String username)
+    {
+        boolean valOK = false;
+
+        long usernameUnique = dh.Accounts_CheckForUsername(username);
+        if(usernameUnique == 0)
+        {
+            valOK = true;
+        }
+
+        return valOK;
+    }
+
+    private boolean ValidateEmail(String email)
+    {
+        boolean valid = false,
+            foundAt = false;
+
+        Log.d("EmailValidate", "" + email.length());
+
+        for(int i = 0; i < email.length(); i++)
+        {
+            if(!foundAt)
+            {
+                if(email.charAt(i)== '@') foundAt = true;
+            }
+            else
+            {
+                if(email.substring(i,email.length()).equals(".com") ||
+                    email.substring(i, email.length()).equals(".edu") ||
+                    email.substring(i, email.length()).equals(".org") ||
+                    email.substring(i,email.length()).equals(".net"))
+                {
+                    valid = true;
+                    break;
+                }
+            }
+        }
+
+        return valid;
     }
 }

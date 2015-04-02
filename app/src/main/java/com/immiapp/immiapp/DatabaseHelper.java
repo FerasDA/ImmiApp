@@ -17,32 +17,52 @@ import java.util.List;
 public class DatabaseHelper {
     private static final String DATABASE_NAME = "Immi.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "Accounts";
+    private static final String ACCOUNT_TABLE = "Accounts";
+    private  static final String EVENT_TABLE = "Events";
+    private static final String RELATIONSHIP_TABLE = "Relationships";
+    private static final String USER_SETTINGS_TABLE = "Settings";
     private Context context;
     private SQLiteDatabase db;
-    private SQLiteStatement insertStmt;
-    private static final String INSERT = "insert into " + TABLE_NAME + "(name, password) values (?, ?)" ;
+    private SQLiteStatement Statement;
+    private static final String INSERT = "Accounts_Insert into " + ACCOUNT_TABLE + "(name, password, firstname, lastname, email) values (?, ?, ?, ?, ?)" ;
 
-    public DatabaseHelper(Context context) {
+    public DatabaseHelper(Context context)
+    {
         this.context = context;
         ImmiOpenHelper openHelper = new ImmiOpenHelper(this.context);
         this.db = openHelper.getWritableDatabase();
-        this.insertStmt = this.db.compileStatement(INSERT);
+        this.Statement = this.db.compileStatement(INSERT);
     }
 
-    public long insert(String name, String password) {
-        this.insertStmt.bindString(1, name);
-        this.insertStmt.bindString(2, password);
-        return this.insertStmt.executeInsert();
-    }
-    public void deleteAll() {
+    public long Accounts_CheckForUsername(String username)
+    {
+        String SEL = "SELECT count(*) FROM (SELECT * FROM " + ACCOUNT_TABLE + " WHERE '" + username + "' = " + ACCOUNT_TABLE + ".name);";
 
-        this.db.delete(TABLE_NAME, null, null);
+        Log.d("DB",SEL);
+
+        SQLiteStatement stmt = db.compileStatement(SEL);
+        long rtn = stmt.simpleQueryForLong();
+        return rtn;
     }
 
-    public List<String> selectAll(String username, String password) {
+    public long Accounts_Insert(String name, String password, String firstname, String lastname, String email)
+    {
+        Statement.bindString(1, name);
+        Statement.bindString(2, password);
+        Statement.bindString(3, firstname);
+        Statement.bindString(4, lastname);
+        Statement.bindString(5, email);
+        return this.Statement.executeInsert();
+    }
+
+    public void DeleteAll() {
+
+        this.db.delete(ACCOUNT_TABLE, null, null);
+    }
+
+    public List<String> Accounts_SelectAll(String username, String password) {
         List<String> list = new ArrayList<String>();
-        Cursor cursor = this.db.query(TABLE_NAME, new String[] { "name", "password" }, "name = '"+ username +"' AND password= '"+ password+"'", null, null, null, "name desc");
+        Cursor cursor = this.db.query(ACCOUNT_TABLE, new String[] { "name", "password" }, "name = '"+ username +"' AND password= '"+ password+"'", null, null, null, "name desc");
         if (cursor.moveToFirst()) {
             do {
                 list.add(cursor.getString(0));
@@ -62,16 +82,31 @@ public class DatabaseHelper {
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL("CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY, name TEXT, password TEXT)");
+        public void onCreate(SQLiteDatabase db)
+        {
+            ClearAll(db);
+            db.execSQL("PRAGMA foreign_keys = on");
+            db.execSQL("CREATE TABLE " + ACCOUNT_TABLE + "(id INTEGER PRIMARY KEY, username TEXT, password TEXT, firstname TEXT, lastname TEXT, email TEXT)");
+            db.execSQL("CREATE TABLE " + EVENT_TABLE + "(id INTEGER PRIMARY KEY, title TEXT, startday INT, startmonth INT, startyear INT, starthour INT, startminute INT," +
+                    " endday INT, endmonth INT, endyear INT, endhour INT, endminute INT, locationname TEXT, address TEXT, city TEXT, zip TEXT, description TEXT, imagefile TEXT)");
+            db.execSQL("CREATE TABLE " + RELATIONSHIP_TABLE + "(id INTEGER PRIMARY KEY, username TEXT, relationship TEXT, FOREIGN_KEY(username) REFERENCES " + ACCOUNT_TABLE + "(username))");
+            db.execSQL("CREATE TABLE " + USER_SETTINGS_TABLE + "(id INTEGER PRIMARY KEY, username TEXT, preferredlocation TEXT, FOREIGN_KEY(username) REFERENCES " + ACCOUNT_TABLE + "(username))");
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+        {
             Log.w("Example", "Upgrading database; this will drop and recreate the tables.");
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+            ClearAll(db);
             onCreate(db);
+        }
+
+        public void ClearAll(SQLiteDatabase db)
+        {
+            db.execSQL("DROP TABLE IF EXISTS " + ACCOUNT_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + EVENT_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + RELATIONSHIP_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + USER_SETTINGS_TABLE);
         }
     }
 }
