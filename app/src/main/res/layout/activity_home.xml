@@ -49,12 +49,12 @@
             android:gravity="end" />
     </LinearLayout>
 
-    <!--Was causing rendering problems, not sure why-->
-    <!--<ListView
+    <ListView
         android:id="@+id/events_list"
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>-->
+        android:layout_height="420dp" >
+    </ListView>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -90,4 +90,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
