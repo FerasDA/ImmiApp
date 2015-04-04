@@ -1,6 +1,7 @@
 package com.immiapp.immiapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,13 @@ public class PreferencesActivity extends Activity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.done_pref:
+                startActivity(new Intent(this, HomeActivity.class));
+                break;
+            case R.id.cancel_pref:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+        }
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:ImmiApp="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_pts"
+        android:title="@string/action_points"
+        ImmiApp:showAsAction="always"/>
+
+    <item android:id="@+id/action_today"
+        android:title="@string/action_today"
+        ImmiApp:showAsAction="always"/>
+
+    <item android:id="@+id/action_three_days"
+        android:title="@string/action_three_days"
+        ImmiApp:showAsAction="always"/>
+
+    <item android:id="@+id/action_week"
+        android:title="@string/action_week"
+        ImmiApp:showAsAction="always"/>
+
+    <!-- Search, should appear as action button -->
+    <item android:id="@+id/action_search"
+        android:icon="@mipmap/ic_action_search"
+        android:title="@string/action_search"
+        ImmiApp:showAsAction="always"/>
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        ImmiApp:showAsAction="never" />
+</menu>

@@ -60,7 +60,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
             // in the future this should bring up the Immi Home screen
             //but now we'll just use the signup activity as an example.
-            startActivity(new Intent(this, PreferencesActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
             finish();
         } else {
             // Try again?
