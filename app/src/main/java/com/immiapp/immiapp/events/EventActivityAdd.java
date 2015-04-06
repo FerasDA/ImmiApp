@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Scroller;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,14 +31,15 @@ import java.util.Date;
 public class EventActivityAdd extends ActionBarActivity implements View.OnClickListener {
 
     DatabaseHandler db;
-    EditText name,description, location, category;
-    Button defTime, defDate, defCategory;
-    TextView date, hour;
+    EditText eventTitle ,eventDescription, eventLocation;
+    Button defTime, defDate;
+    TextView time, date, category;
     Calendar datetime;
     long 		id;
     int			day, month, year, hours, minutes;
     static final int TIME_DIALOG_ID = 998;
     static final int DATE_DIALOG_ID = 999;
+    //private Spinner defCategory;
 
     private DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -72,19 +74,20 @@ public class EventActivityAdd extends ActionBarActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_add);
-        setTitle("Insert Event");
+        setTitle("Add Event");
 
-        name = (EditText)findViewById(R.id.eventTitle);
-        description = (EditText)findViewById(R.id.eventDescription);
-        location = (EditText)findViewById(R.id.eventLocation);
+        eventTitle = (EditText)findViewById(R.id.eventTitle);
+        eventDescription = (EditText)findViewById(R.id.eventDescription);
+        eventLocation = (EditText)findViewById(R.id.eventLocation);
         date = (TextView)findViewById(R.id.txtDate);
-        hour = (TextView)findViewById(R.id.txtTime);
+        time = (TextView)findViewById(R.id.txtTime);
+        category = (TextView)findViewById(R.id.txtCategory);
         defDate = (Button)findViewById(R.id.defDate);
         defTime = (Button)findViewById(R.id.defTime);
-        defCategory = (Button)findViewById(R.id.defCategory);
+        //defCategory = (Spinner)findViewById(R.id.defCategory);
 
-        description.setScroller(new Scroller(getApplicationContext()));
-        description.setVerticalScrollBarEnabled(true);
+        eventDescription.setScroller(new Scroller(getApplicationContext()));
+        eventDescription.setVerticalScrollBarEnabled(true);
 
         Calendar c = Calendar.getInstance();
         day = c.get(Calendar.DAY_OF_MONTH);
@@ -97,10 +100,13 @@ public class EventActivityAdd extends ActionBarActivity implements View.OnClickL
 
         date.setText(day+"/"+(month+1)+"/"+year);
 
+        //category.setText(String.valueOf(defCategory.getSelectedItem()));
+
         db = new DatabaseHandler(getApplicationContext());
 
         defDate.setOnClickListener(this);
         defTime.setOnClickListener(this);
+        //defCategory.setOnClickListener(this);
     }
 
     @Override
@@ -139,20 +145,20 @@ public class EventActivityAdd extends ActionBarActivity implements View.OnClickL
     }
 
     private void save() {
-        String Sevent = name.getText().toString();
-        String Sdescription = description.getText().toString();
-        String STime = hour.getText().toString();
+        String SEvent = eventTitle.getText().toString();
+        String SDescription = eventDescription.getText().toString();
+        String STime = time.getText().toString();
         String SDate = date.getText().toString();
-        String SLocation = location.getText().toString();
-        String SCategpry = category.getText().toString();
+        String SLocation = eventLocation.getText().toString();
+        //String SCategory = category.getText().toString();
 
-        if (Sevent.matches("")) {
+        if (SEvent.matches("")) {
             Toast.makeText(EventActivityAdd.this, "Insert a title for the event", Toast.LENGTH_LONG).show();
-        }else if(Sdescription.matches("")){
+        }else if(SDescription.matches("")){
             Toast.makeText(EventActivityAdd.this, "Insert a description to the event", Toast.LENGTH_LONG).show();
         }
         else {
-            Event event = new Event(Sevent, Sdescription, STime, SDate, SLocation, SCategpry);
+            Event event = new Event(SEvent, SDescription, SLocation, STime, SDate, "sports");
             id = db.addEvent(event);
             Toast.makeText(EventActivityAdd.this, "Event Saved", Toast.LENGTH_SHORT).show();
            // setAlarm();
@@ -210,5 +216,5 @@ public class EventActivityAdd extends ActionBarActivity implements View.OnClickL
         String aTime = new StringBuilder().append(hours).append(':')
                 .append(minutes).append(" ").append(timeSet).toString();
 
-        hour.setText(aTime);
+        time.setText(aTime);
     }}
