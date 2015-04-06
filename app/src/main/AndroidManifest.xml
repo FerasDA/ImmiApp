@@ -2,30 +2,40 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.immiapp.immiapp" >
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="18" />
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="18" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <android:uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
-        android:uiOptions="splitActionBarWhenNarrow"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
+        android:theme="@style/AppTheme"
+        android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name="com.immiapp.immiapp.Main"
-            android:label="@string/app_name"
-            android:configChanges="orientation|keyboardHidden" >
+            android:name=".Main"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.immiapp.immiapp.events.EventActivityShow"></activity>
-        <activity android:name="com.immiapp.immiapp.events.EventActivityAdd"></activity>
-        <activity android:name="com.immiapp.immiapp.events.EventActivityEdit"></activity>
+        <activity android:name=".events.EventActivityShow" />
+        <activity android:name=".events.EventActivityAdd" />
+        <activity android:name=".events.EventActivityEdit" />
 
         <!--
         <activity
@@ -50,6 +60,10 @@
                 android:value="com.immiapp.immiapp.HomeActivity"></meta-data>
         </activity>
         -->
+        <activity
+            android:name=".Tabs.MeActivity"
+            android:label="@string/title_activity_me" >
+        </activity>
     </application>
 
 </manifest>
