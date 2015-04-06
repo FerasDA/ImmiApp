@@ -19,10 +19,10 @@ public class TextFieldsFragment extends Fragment {
     private TextView mRegularTextView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_signup, container, false);
-
-       // mRegularTextView = (TextView) v.findViewById(R.id.regular_text_view);
 
         return v;
     }
