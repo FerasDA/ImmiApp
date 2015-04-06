@@ -17,12 +17,24 @@
 
     <string name="defTime">Insert Time</string>
     <string name="defDate">Insert Date</string>
-    <string name="defCategory">Insert Category</string>
+    <string name="defCategory">Choose Category</string>
+
+    <string-array name="category_arrays">
+        <item>Music</item>
+        <item>Art and Film</item>
+        <item>Food and Drinks</item>
+        <item>Sports</item>
+        <item>Academic</item>
+        <item>Games</item>
+        <item>Miscellaneous</item>
+    </string-array>
 
     <string name="save">Save</string>
-    <string name="alert">* Mandatory fields</string>
+    <string name="alert">* Required fields</string>
 
     <string name="average">Average</string>
+
+
 
 
 
