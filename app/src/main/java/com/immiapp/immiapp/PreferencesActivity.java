@@ -24,7 +24,11 @@ public class PreferencesActivity extends ActionBarActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.done_pref:
-                startActivity(new Intent(this, HomeActivity.class));
+                //***************************************************
+                //***************THIS IS IMPORTANT********************
+                //******************************************************
+                //startActivity(new Intent(this, HomeActivity.class));
+                //******************************************************
                 break;
             case R.id.cancel_pref:
                 startActivity(new Intent(this, LoginActivity.class));
