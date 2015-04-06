@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name=".Main"
+            android:name=".LoginActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name" >
             <intent-filter>
@@ -36,6 +36,9 @@
         <activity android:name=".events.EventActivityShow" />
         <activity android:name=".events.EventActivityAdd" />
         <activity android:name=".events.EventActivityEdit" />
+        <activity android:name=".Main"/>
+        <activity android:name=".SignupActivity"/>
+
 
         <!--
         <activity
