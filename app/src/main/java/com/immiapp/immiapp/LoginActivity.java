@@ -58,13 +58,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             editor.putString(OPT_NAME, username);
             editor.commit();
 
-            // in the future this should bring up the Immi Home screen
-            //but now we'll just use the signup activity as an example.
-            //***************************************************
-            //***************THIS IS IMPORTANT********************
-            //******************************************************
-           //********* startActivity(new Intent(this, HomeActivity.class));
-           //******************************************************
+           startActivity(new Intent(this, Main.class));
             finish();
         } else {
             // Try again?

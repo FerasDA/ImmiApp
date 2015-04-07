@@ -1,6 +1,6 @@
 package com.immiapp.immiapp;
 
-
+import com.immiapp.immiapp.Tabs.FilterFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -8,9 +8,10 @@ import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
+import com.immiapp.immiapp.Tabs.FilterFragment;
 import com.immiapp.immiapp.events.EventsMain;
 
-public class Main extends ActionBarActivity {
+public class Main extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +57,7 @@ public class Main extends ActionBarActivity {
 
         @Override
         public void onTabReselected(ActionBar.Tab arg0, android.support.v4.app.FragmentTransaction ft) {
+            //Do nothing
         }
 
         @Override
