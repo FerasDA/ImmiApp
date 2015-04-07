@@ -39,6 +39,7 @@ public class MoreMain extends Fragment {
         aboutBtn = (Button)view.findViewById(R.id.aboutBtn);
         contactUsBtn = (Button)view.findViewById(R.id.contactUsBtn);
         immiPointsBtn = (Button)view.findViewById(R.id.immiPointsBtn);
+        btnDescriptionText = (TextView)view.findViewById(R.id.btnDescriptionText);
 
         setupAboutBtn();
         setupContactUsBtn();
