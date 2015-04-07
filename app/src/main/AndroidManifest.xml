@@ -9,14 +9,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <android:uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,6 +28,9 @@
         <activity android:name=".events.EventActivityShow" />
         <activity android:name=".events.EventActivityAdd" />
         <activity android:name=".events.EventActivityEdit" />
+
+
+
 
         <!--
         <activity
@@ -60,10 +55,7 @@
                 android:value="com.immiapp.immiapp.HomeActivity"></meta-data>
         </activity>
         -->
-        <activity
-            android:name=".Tabs.MeActivity"
-            android:label="@string/title_activity_me" >
-        </activity>
+
     </application>
 
 </manifest>

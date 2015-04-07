@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 
 import com.immiapp.immiapp.events.EventsMain;
+import com.immiapp.immiapp.filter.FilterMain;
+import com.immiapp.immiapp.more.MoreMain;
 
 public class Main extends ActionBarActivity {
     @Override
@@ -25,7 +27,7 @@ public class Main extends ActionBarActivity {
         actionBar.addTab(tab);
 
         tab = actionBar.newTab().setText("Filter");
-        Fragment t2 = new EventsMain();
+        Fragment t2 = new FilterMain();
         tab.setTabListener(new TabListener(t2));
         actionBar.addTab(tab);
 
@@ -35,7 +37,7 @@ public class Main extends ActionBarActivity {
         actionBar.addTab(tab);
 
         tab = actionBar.newTab().setText("More");
-        Fragment t4 = new EventsMain();
+        Fragment t4 = new MoreMain();
         tab.setTabListener(new TabListener(t4));
         actionBar.addTab(tab);
 
