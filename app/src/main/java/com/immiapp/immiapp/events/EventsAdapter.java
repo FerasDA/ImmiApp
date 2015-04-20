@@ -62,11 +62,11 @@ public class EventsAdapter extends ArrayAdapter<Event> {
         viewHolder.date.setText(event.getDate());
         viewHolder.time.setText(event.getTime());
 
-        if (mSelection.get(position) != null)
-            convertView.setBackgroundColor(0x9934B5E4);
-        else
-            convertView.setBackgroundColor(Color.TRANSPARENT);
-
+        if (position % 2 == 1) {
+            convertView.setBackgroundColor(Color.parseColor("#5FFFCE"));
+        } else {
+            convertView.setBackgroundColor(Color.parseColor("#FFBBFFDB"));
+        }
 
         return convertView;
     }
