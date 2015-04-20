@@ -17,12 +17,24 @@
 
     <string name="defTime">Insert Time</string>
     <string name="defDate">Insert Date</string>
-    <string name="defCategory">Insert Category</string>
+    <string name="defCategory">Choose Category</string>
+
+    <string-array name="category_arrays">
+        <item>Music</item>
+        <item>Art and Film</item>
+        <item>Food and Drinks</item>
+        <item>Sports</item>
+        <item>Academic</item>
+        <item>Games</item>
+        <item>Miscellaneous</item>
+    </string-array>
 
     <string name="save">Save</string>
-    <string name="alert">* Mandatory fields</string>
+    <string name="alert">* Required fields</string>
 
     <string name="average">Average</string>
+
+
 
 
 
@@ -83,7 +95,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="about_immi">Immi is an event planning and finding social media app. It\'s main focus is finding local events near you.</string>
-    <string name="contact_us">Send us an email at noemailyet@nonexistent.net</string>
+    <string name="contact_us">Send us an email at osuimmiapp@gmail.com</string>
     <string name="immi_points_explanation">Immi points track your popularity in our app. Events, up-votes, attendance, and more can raise your score.</string>
 
 </resources>

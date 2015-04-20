@@ -53,20 +53,20 @@ public class EventsAdapter extends ArrayAdapter<Event> {
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView)convertView.findViewById(R.id.textViewEventName);
             viewHolder.date = (TextView)convertView.findViewById(R.id.textViewEventDate);
-            viewHolder.hour = (TextView)convertView.findViewById(R.id.textViewEventTime);
+            viewHolder.time = (TextView)convertView.findViewById(R.id.textViewEventTime);
             convertView.setTag(viewHolder);
         } else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.title.setText(event.getTitle());
         viewHolder.date.setText(event.getDate());
-        viewHolder.hour.setText(event.getTime());
+        viewHolder.time.setText(event.getTime());
 
-        if (mSelection.get(position) != null)
-            convertView.setBackgroundColor(0x9934B5E4);
-        else
-            convertView.setBackgroundColor(Color.TRANSPARENT);
-
+        if (position % 2 == 1) {
+            convertView.setBackgroundColor(Color.parseColor("#5FFFCE"));
+        } else {
+            convertView.setBackgroundColor(Color.parseColor("#FFBBFFDB"));
+        }
 
         return convertView;
     }
@@ -127,6 +127,6 @@ public class EventsAdapter extends ArrayAdapter<Event> {
     static class ViewHolder{
         protected TextView title;
         protected TextView date;
-        protected TextView hour;
+        protected TextView time;
     }
 }

@@ -28,7 +28,7 @@ public class EventActivityShow extends Activity {
         txtDescription = (TextView)findViewById(R.id.description);
         txtDate = (TextView)findViewById(R.id.date);
         txtTime = (TextView)findViewById(R.id.time);
-        txtLocation = (TextView)findViewById(R.id.textViewLocation);
+        txtLocation = (TextView)findViewById(R.id.location);
         txtCategory = (TextView)findViewById(R.id.category);
 
         db = new DatabaseHandler(this);
