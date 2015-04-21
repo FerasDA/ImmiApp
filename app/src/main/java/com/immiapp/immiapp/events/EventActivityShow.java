@@ -4,20 +4,39 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.immiapp.immiapp.Database.DatabaseHandler;
 import com.immiapp.immiapp.R;
+import android.location.Address;
+
+import java.io.IOException;
+import java.util.List;
 
 public class EventActivityShow extends Activity {
     private DatabaseHandler db;
     private Event event;
     private int id;
+    private String address;
     private TextView txtTitle, txtDescription, txtDate, txtTime, txtLocation, txtCategory;
+    private GoogleMap map;
+    double latitude;
+    double longitude;
+    List<Address> geocodeMatches = null;
+
+    private static LatLng LAT_LNG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +65,34 @@ public class EventActivityShow extends Activity {
             id = bundle.getInt(db.KEY_ROWID_EVENTS);
             consult();
         }
+
         setTitle("Event - " + event.getTitle());
+
+        try {
+            geocodeMatches = new Geocoder(this).getFromLocationName(address, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (!geocodeMatches.isEmpty())
+        {
+            latitude = geocodeMatches.get(0).getLatitude();
+            longitude = geocodeMatches.get(0).getLongitude();
+        }
+
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.show_map)).getMap();
+        if (map != null) {
+            Marker loc = map.addMarker(new MarkerOptions()
+                    .position(new LatLng(latitude, longitude))
+                    .title(address));
+            LAT_LNG = new LatLng(latitude, longitude);
+            for (int i = 0; i < 10; i++) {
+                for(int j = 0; j < 10; j++) {
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG, i+j));
+                }
+            }
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG, 10));
+        }
     }
 
     @Override
@@ -77,6 +123,7 @@ public class EventActivityShow extends Activity {
         return false;
     }
 
+
     private void consult() {
         event = db.getEventsById(id);
 
@@ -87,6 +134,13 @@ public class EventActivityShow extends Activity {
         txtDate.setText(event.getDate());
         txtTime.setText(event.getTime());
         txtCategory.setText(event.getCategory());
+        address = event.getLocation();
+
+        for (int i = 0; i < 10000; i++) {
+            for(int j = 0; j < 10000; j++) {
+                float f = i * j;
+            }
+        }
     }
 
     public void alertDialog(){

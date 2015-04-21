@@ -89,6 +89,20 @@
     <orderEntry type="library" exported="" name="play-services-cast-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-maps-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.0.0" level="project" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" exported="" name="play-services-wearable-7.0.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-panorama-7.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-22.0.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-plus-7.0.0" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
+<<<<<<< HEAD
+    <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
+=======
+    <orderEntry type="library" exported="" name="play-services-7.0.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-ads-7.0.0" level="project" />
+>>>>>>> fc920bfa28cd00e04f20f2c247abe406b52c2011
     <orderEntry type="library" exported="" name="play-services-base-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-fitness-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-panorama-7.0.0" level="project" />
@@ -108,6 +122,7 @@
     <orderEntry type="library" exported="" name="play-services-nearby-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wearable-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-wallet-7.0.0" level="project" />
+>>>>>>> b7830236bdfa2ce2c5afe4e560a4348768b22892
   </component>
 </module>
 
