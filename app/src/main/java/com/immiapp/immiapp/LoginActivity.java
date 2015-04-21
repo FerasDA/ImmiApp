@@ -34,9 +34,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
         View btnLogin = (Button) findViewById(R.id.loginButton);
         btnLogin.setOnClickListener(this);
+
+
         //We may add a cancel button here or/and Facebook button
         // View btnCancel = (Button) findViewById(R.id.cancelButton);
         //btnCancel.setOnClickListener(this);
+
+
         View btnNewUser = (Button) findViewById(R.id.signupButton);
         btnNewUser.setOnClickListener(this);
 
@@ -48,6 +52,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         String password = this.passwordEditableField.getText().toString();
         this.dh = new DatabaseHelper(this);
         List<String> names = this.dh.Accounts_SelectAll(username, password);
+
         if (names.size() > 0) { // Login successful
             // Save username as the name of the player
             SharedPreferences settings = PreferenceManager
@@ -74,6 +79,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
+
+
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginButton:
@@ -88,7 +97,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
+
     //
+
 
     @Override
     protected void onStart() {
