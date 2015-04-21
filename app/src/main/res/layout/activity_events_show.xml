@@ -129,6 +129,21 @@
                     android:text="Medium Text"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <fragment
+                    android:id="@+id/show_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:name="com.google.android.gms.maps.MapFragment"/>
+
             </LinearLayout>
 
         </LinearLayout>
