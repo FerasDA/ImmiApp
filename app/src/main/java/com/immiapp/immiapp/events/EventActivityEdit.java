@@ -29,9 +29,9 @@ public class EventActivityEdit extends Activity implements View.OnClickListener 
     private Event event;
     private int id;
 
-    private EditText title, description, location, category;
+    private EditText title, description, location;
     private Button defTime, defDate, defCategory;
-    private TextView date, time;
+    private TextView date, time, category;
     int	day, month, year, hours, minutes;
     static final int TIME_DIALOG_ID = 998;
     static final int DATE_DIALOG_ID = 999;
@@ -70,7 +70,7 @@ public class EventActivityEdit extends Activity implements View.OnClickListener 
         location = (EditText)findViewById(R.id.location);
         date = (TextView)findViewById(R.id.txtDate);
         time = (TextView)findViewById(R.id.txtTime);
-        category = (EditText)findViewById(R.id.txtCategory);
+        category = (TextView)findViewById(R.id.txtCategory);
 
         defDate = (Button)findViewById(R.id.btnDate);
         defTime = (Button)findViewById(R.id.btnTime);
