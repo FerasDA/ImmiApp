@@ -2,15 +2,21 @@ package com.immiapp.immiapp.events;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -21,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.immiapp.immiapp.Database.DatabaseHandler;
 import com.immiapp.immiapp.R;
 import android.location.Address;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,13 +42,20 @@ public class EventActivityShow extends Activity {
     double latitude;
     double longitude;
     List<Address> geocodeMatches = null;
+    private static final int GPS_ERRORDIALOG_REQUEST = 9001;
+
 
     private static LatLng LAT_LNG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_events_show);
+        if (servicesOK()) {
+            setContentView(R.layout.activity_events_show);
+        } else {
+            setContentView(R.layout.activity_main);
+
+        }
 
         txtTitle = (TextView)findViewById(R.id.title);
         txtDescription = (TextView)findViewById(R.id.description);
@@ -94,6 +108,34 @@ public class EventActivityShow extends Activity {
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(LAT_LNG, 10));
         }
     }
+
+    private boolean servicesOK() {
+        int isAvailable = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+
+        if (isAvailable == ConnectionResult.SUCCESS) {
+
+            return true;
+
+        } else if (GooglePlayServicesUtil.isUserRecoverableError(isAvailable)) {
+
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(isAvailable,
+                    this, GPS_ERRORDIALOG_REQUEST);
+            dialog.show();
+
+        } else {
+
+            Toast.makeText(this, "Cant connect!!", Toast.LENGTH_SHORT).show();
+
+        }
+        return false;
+    }
+//    public boolean isNetworkAvailable() {
+//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo activeNetworkInfo = connectivityManager
+//                .getActiveNetworkInfo();
+//        return activeNetworkInfo != null;
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
